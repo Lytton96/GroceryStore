@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GroceryStore.Domain.Concrete
 {
-    class InMemoryProductRepository : IProductsRepository
+   public class InMemoryProductRepository : IProductsRepository
     {
         private List<Product> _products = new List<Product>
          {

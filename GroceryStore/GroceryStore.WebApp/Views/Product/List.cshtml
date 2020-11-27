@@ -1,0 +1,18 @@
+﻿@using GroceryStore.Domain.Entities
+@model IEnumerable<Product>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+@foreach (Product p in Model)
+{
+<div>
+    <h3>@p.Name</h3>
+      @p.Description
+    <h2>@p.Price.ToString("c")</h2>
+</div>
+}
+
+
+
