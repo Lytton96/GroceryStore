@@ -1,5 +1,6 @@
 ﻿using GroceryStore.Domain.Abstract;
 using GroceryStore.Domain.Concrete;
+using GroceryStore.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,38 @@ namespace GroceryStore.WebApp.Controllers
         // GET: Product
         public IProductsRepository ProductsRepository { get; set; }
         = new EFProductRepository();
-        public ViewResult List()
+
+        public int PageSize = 3;
+        public ViewResult List(int page =1)
         {
             // M-V-C
             // M -> ProductsRepository.Products
             // V -> View
             // C -> ProductController
-            return View(ProductsRepository.Products);
+
+            //var model = ProductsRepository
+            //    .Products
+            //    .OrderBy(p => p.ProductID)
+            //    .Skip((page - 1)*PageSize)
+            //    .Take(PageSize);
+
+            ProductsListViewModel model = new ProductsListViewModel
+            {
+                Products = ProductsRepository
+                .Products
+                .OrderBy(p => p.ProductID)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize),
+
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = ProductsRepository.Products.Count()
+                }
+            };
+
+            return View(model);
         }
     }
 }
