@@ -12,7 +12,7 @@ namespace GroceryStore.WebApp.Controllers
     {
         // GET: Product
         public IProductsRepository ProductsRepository { get; set; }
-        = new InMemoryProductRepository();
+        = new EFProductRepository();
         public ViewResult List()
         {
             // M-V-C
