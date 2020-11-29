@@ -13,8 +13,10 @@ namespace GroceryStore.WebApp.Controllers
         public IProductsRepository ProductsRepository { get; set; }
       = new EFProductRepository();
         // GET: Nav
-        public PartialViewResult Menu()
+        public PartialViewResult Menu(string category = null)
         {
+            ViewBag.SelectedCategory = category;
+
             IEnumerable<string> categories = ProductsRepository
                 .Products
                 .Select(x => x.Category)
